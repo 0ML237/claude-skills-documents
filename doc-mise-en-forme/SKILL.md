@@ -46,6 +46,57 @@ Lire `design-premium.md` et `defauts-visuels.md` avant toute génération. Lire 
 - **Accessibilité.** Contraste suffisant, titres en styles de titre réels (pour la navigation et le sommaire), texte alternatif sur les images.
 - **Fidélité.** Un seul contenu, deux formats identiques. Si les polices du DOCX diffèrent de celles du PDF, le signaler.
 
+## Utilisation des scripts
+
+Toutes les commandes se lancent depuis le dossier du skill (`~/.claude/skills/doc-mise-en-forme`). Les paquets Node sont installés localement, à côté de `scripts/`.
+
+```bash
+# 0. Vérifier l'environnement une fois (polices, LibreOffice, Node, Poppler, pandoc)
+scripts/check_env.sh
+```
+
+Pour un document court (moins de 12 pages prévues, pas de sommaire) :
+
+```bash
+# Passe unique
+node scripts/build_docx.mjs <contenu.md> <charte.json> <sortie.docx>
+scripts/to_pdf.sh <sortie.docx>              # écrit <sortie.pdf> à côté
+scripts/render_check.sh <sortie.pdf>         # écrit des PNG par page + infos.txt
+```
+
+Pour un document potentiellement long, utiliser la génération en deux passes. Le script `build_docx.mjs` ne décide pas tout seul : il faut mesurer puis, si le seuil de 12 pages hors couverture est atteint, régénérer avec le sommaire.
+
+```bash
+contenu=exemple-contenu.md
+charte=charte.json
+docx=sortie.docx
+pdf=sortie.pdf
+
+# Passe 1 : sans sommaire
+node scripts/build_docx.mjs "$contenu" "$charte" "$docx"
+scripts/to_pdf.sh "$docx"
+
+# Compter les pages hors couverture
+pages=$(pdfinfo "$pdf" | awk -F': *' '/^Pages/{print $2}')
+seuil=$(jq -r '.sommaire.a_partir_de_pages' "$charte")
+
+# Passe 2 : seulement si le seuil est atteint
+if [ "$((pages-1))" -ge "$seuil" ]; then
+  node scripts/build_docx.mjs "$contenu" "$charte" "$docx" --toc-from-pdf="$pdf"
+  scripts/to_pdf.sh "$docx"
+fi
+
+scripts/render_check.sh "$pdf"
+```
+
+### Pourquoi un sommaire « statique » et non un champ TOC natif
+
+Les scripts rendent le sommaire sous forme de paragraphes figés (titre, points de conduite, numéro de page). LibreOffice en mode `--headless --convert-to pdf` n'actualise pas les champs, même avec `w:updateFields`. Les numéros de page proviennent de la passe 1 (via `pdftotext -layout`), ajustés d'une page pour tenir compte du sommaire lui-même. Les titres restent sur des styles de titre intégrés, donc Word peut toujours insérer un sommaire natif si l'utilisateur en a besoin — le visuel du PDF, lui, est garanti sans dépendre du comportement de `soffice`.
+
+### Substitution de polices (macOS)
+
+Sur macOS, `soffice` utilise son propre registre de polices et peut ne pas voir les polices système (Georgia, Arial, Courier New). Le DOCX reste correct : il demande les bonnes polices, et Word les trouvera. Pour le PDF, utiliser `pdffonts <sortie.pdf>` pour vérifier ; si on voit `LinuxLibertine` ou `LiberationSans`, c'est une substitution. Deux options : installer les polices dans `~/Library/Fonts` pour que `soffice` les détecte, ou ajuster `charte.json` pour utiliser des polices que `soffice` connaît directement.
+
 ## Pièges de génération DOCX (bibliothèque `docx`)
 
 Ces erreurs reviennent systématiquement ; les éviter dès le départ.
