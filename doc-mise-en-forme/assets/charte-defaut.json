@@ -1,0 +1,153 @@
+{
+  "nom": "Premium éditorial (défaut)",
+  "origine": "defaut",
+  "version": "1.0",
+
+  "page": {
+    "format": "A4",
+    "largeur_dxa": 11906,
+    "hauteur_dxa": 16838,
+    "marges_mm": { "haut": 28, "bas": 25, "gauche": 25, "droite": 25 },
+    "entete_mm": 12,
+    "pied_mm": 12
+  },
+
+  "polices": {
+    "texte": "Georgia",
+    "titres": "Georgia",
+    "secondaire": "Arial",
+    "code": "Courier New"
+  },
+
+  "tailles_pt": {
+    "corps": 10.5,
+    "titre_couverture": 30,
+    "sous_titre": 14,
+    "h2": 19,
+    "h3": 15,
+    "h4": 12,
+    "secondaire": 8,
+    "legende": 8.5,
+    "tableau": 10,
+    "tableau_entete": 8.5,
+    "code": 9
+  },
+
+  "graisse_titres": { "h2": "normal", "h3": "normal", "h4": "gras" },
+
+  "interligne": { "corps": 1.4, "titres": 1.15, "tableau": 1.25, "code": 1.2 },
+
+  "espacement_pt": {
+    "apres_paragraphe": 6,
+    "avant_h2": 24,
+    "apres_h2": 8,
+    "avant_h3": 16,
+    "apres_h3": 6,
+    "avant_h4": 12,
+    "apres_h4": 4,
+    "entre_puces": 3,
+    "avant_apres_bloc": 8
+  },
+
+  "couleurs": {
+    "texte": "1A1A1A",
+    "secondaire": "6B7280",
+    "accent": "1E3A5F",
+    "attention": "B45309",
+    "filet": "D1D5DB",
+    "filet_leger": "E5E7EB",
+    "filet_note": "9CA3AF",
+    "fond_code": "F5F5F4",
+    "lien": "1E3A5F"
+  },
+
+  "alignement_texte": "gauche",
+
+  "couverture": {
+    "organisation_en_haut": true,
+    "espace_avant_titre_mm": 100,
+    "largeur_max_titre_mm": 130,
+    "filet_accent": { "longueur_mm": 40, "epaisseur_pt": 1.5 },
+    "afficher_metadonnees": ["reference", "date", "version", "auteur", "confidentialite"],
+    "logo_hauteur_mm": 12
+  },
+
+  "entete_pied": {
+    "entete_gauche": "titre_court",
+    "entete_droite": "confidentialite",
+    "titre_court_max_car": 60,
+    "filet_entete_pt": 0.5,
+    "pied_droite": "page_x_sur_y",
+    "pied_gauche": "organisation",
+    "masquer_sur_couverture": true
+  },
+
+  "sommaire": {
+    "a_partir_de_pages": 12,
+    "niveaux": [2, 3],
+    "retrait_niveau3_mm": 6,
+    "points_de_conduite": true
+  },
+
+  "tableaux": {
+    "largeur": "zone_de_texte",
+    "filet_haut_pt": 1,
+    "filet_entete_pt": 0.5,
+    "filet_lignes_pt": 0.5,
+    "filet_bas_pt": 1,
+    "fond_entete": null,
+    "fond_alterne": false,
+    "lignes_verticales": false,
+    "marges_cellule_dxa": { "gauche": 100, "droite": 100, "haut": 80, "bas": 80 },
+    "aligner_nombres_a_droite": true,
+    "lignes_insecables": true,
+    "repeter_entete": true,
+    "tableau_court_max_lignes": 8
+  },
+
+  "blocs": {
+    "epaisseur_filet_pt": 2.25,
+    "retrait_mm": 6,
+    "NOTE": { "filet": "filet_note", "style_filet": "continu", "libelle_couleur": "secondaire" },
+    "WARNING": { "filet": "attention", "style_filet": "continu", "libelle_couleur": "attention" },
+    "DECISION": { "filet": "accent", "style_filet": "continu", "libelle_couleur": "accent" },
+    "ACTION": { "filet": "accent", "style_filet": "continu", "libelle_couleur": "accent" },
+    "A-COMPLETER": { "filet": "attention", "style_filet": "pointille", "libelle_couleur": "attention" }
+  },
+
+  "listes": {
+    "puce_niveau1": "•",
+    "puce_niveau2": "–",
+    "retrait_mm": 6
+  },
+
+  "images": { "largeur_max": "zone_de_texte", "alignement": "gauche", "texte_alternatif_obligatoire": true },
+
+  "code": { "retrait_mm": 3, "lignes_ensemble": true },
+
+  "pagination": {
+    "saut_apres_couverture": true,
+    "saut_apres_sommaire": true,
+    "saut_avant_annexes": true,
+    "saut_avant_chaque_section": false,
+    "titres_lies_au_suivant": true,
+    "controle_veuves_orphelines": true
+  },
+
+  "libelles": {
+    "fr": {
+      "sommaire": "Sommaire", "page": "Page", "sur": "sur", "tableau": "Tableau", "figure": "Figure",
+      "annexe": "Annexe", "note": "Note", "attention": "Attention", "decision": "Décision",
+      "action": "Action", "a_completer": "À compléter", "confidentialite": "Confidentialité",
+      "reference": "Référence", "date": "Date", "version": "Version", "auteur": "Auteur"
+    },
+    "en": {
+      "sommaire": "Contents", "page": "Page", "sur": "of", "tableau": "Table", "figure": "Figure",
+      "annexe": "Appendix", "note": "Note", "attention": "Warning", "decision": "Decision",
+      "action": "Action", "a_completer": "To complete", "confidentialite": "Confidentiality",
+      "reference": "Reference", "date": "Date", "version": "Version", "auteur": "Author"
+    }
+  },
+
+  "logo": null
+}
